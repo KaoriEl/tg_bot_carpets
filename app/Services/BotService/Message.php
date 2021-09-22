@@ -15,6 +15,12 @@ class Message
                 case "начать работу":
                     return (new StartWork())->HandleMessage($response);
                     break;
+                case "☰":
+                    return (new Menu())->HandleMessage($response);
+                    break;
+                case "← назад":
+                    return (new GroupBack())->HandleMessage($response);
+                    break;
                 default:
                     return (new DefaultMessage())->HandleMessage($response);
             }

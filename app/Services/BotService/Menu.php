@@ -26,8 +26,8 @@ class Menu implements ChatStrategy
     public function HandleMessage($response): array
     {
         $TgUserController = new TgUserController();
-        $return = $TgUserController->CheckUser($response, true);
-        $TgUserController->UpdateStep($response, true, "In_the_main_menu");
+        $return = $TgUserController->CheckUser($response, false);
+        $TgUserController->UpdateStep($response, false, "In_the_main_menu");
         if ($return->status == "VERIFIED") {
             if ($return->role == "admin") {
                 $data = ["Заявки на авторизацию,заявки"];
@@ -38,14 +38,14 @@ class Menu implements ChatStrategy
             $encodedKeyboard = json_encode($keyboard);
 
             return $params = [
-                'chat_id' => $response["callback_query"]["message"]["chat"]["id"],
+                'chat_id' => $response["message"]["chat"]["id"],
                 'text' => "Главное меню",
                 'parse_mode' => 'HTML',
                 'reply_markup' => $encodedKeyboard
             ];
         } else {
             return $params = [
-                'chat_id' => $response["callback_query"]["message"]["chat"]["id"],
+                'chat_id' => $response["message"]["chat"]["id"],
                 'text' => "Вы не авторизованы в боте, обратитесь к администратору",
                 'parse_mode' => 'HTML',
             ];

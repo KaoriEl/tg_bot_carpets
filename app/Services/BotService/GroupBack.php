@@ -3,11 +3,10 @@
 namespace App\Services\BotService;
 
 use App\Contracts\ChatStrategy;
-use App\Http\Controllers\BotController;
 use App\Http\Controllers\TgUserController;
 use App\Services\Engine\KeyboardGenerate;
 
-class Group implements ChatStrategy
+class GroupBack implements ChatStrategy
 {
     private array $keyboard;
 
@@ -25,8 +24,8 @@ class Group implements ChatStrategy
     public function HandleMessage($response): array
     {
         $TgUserController = new TgUserController();
-        $return = $TgUserController->CheckUser($response, true);
-        $TgUserController->UpdateStep($response, true, "watching_groups");
+        $return = $TgUserController->CheckUser($response, false);
+        $TgUserController->UpdateStep($response, false, "watching_groups");
         if ($return->status == "VERIFIED") {
 
             $data = ["Полки,полки", "Ковры от клиента,от клиента", "Ковры до стирки,до стирки", "Ковры на стирку,на стирку"];
@@ -34,7 +33,7 @@ class Group implements ChatStrategy
             $encodedKeyboard = json_encode($keyboard);
 
             return $params = [
-                'chat_id' => $response["callback_query"]["message"]["chat"]["id"],
+                'chat_id' => $response["message"]["chat"]["id"],
                 'text' => "Выберите подходящий для вас вариант",
                 'parse_mode' => 'HTML',
                 'reply_markup' => $encodedKeyboard
@@ -42,10 +41,11 @@ class Group implements ChatStrategy
 
         } else {
             return $params = [
-                'chat_id' => $response["callback_query"]["message"]["chat"]["id"],
+                'chat_id' => $response["message"]["chat"]["id"],
                 'text' => "Вы не авторизованы в боте, обратитесь к администратору",
                 'parse_mode' => 'HTML',
             ];
         }
     }
+
 }
