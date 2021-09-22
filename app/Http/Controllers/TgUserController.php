@@ -13,7 +13,9 @@ class TgUserController extends Controller
 
         //Фууу, какая гадость
         $first_name = $response["message"]["chat"]["first_name"];
-        $last_name = $response["message"]["chat"]["last_name"];
+        if (isset($response["message"]["chat"]["last_name"])){
+            $last_name = $response["message"]["chat"]["last_name"];
+        }
         $chat_id = $response["message"]["chat"]["id"];
         if (isset($response["message"]["chat"]["username"])) {
             $username = $response["message"]["chat"]["username"];
