@@ -1,0 +1,56 @@
+<?php
+
+namespace App\Services\BotService;
+
+use App\Contracts\ChatStrategy;
+use App\Http\Controllers\TgUserController;
+use App\Services\Engine\KeyboardGenerate;
+
+class StartWork implements ChatStrategy
+{
+    private array $keyboard;
+
+    public function __construct()
+    {
+        $this->keyboard = [
+            'inline_keyboard' => [
+                [
+                    ['text' => 'Группы', 'callback_data' => 'группы'],
+                    ['text' => 'Истории', 'callback_data' => 'истории'],
+                    ['text' => 'Сделки', 'callback_data' => 'сделки']
+                ]
+            ]
+        ];
+    }
+
+    public function HandleMessage($response): array
+    {
+        $TgUserController = new TgUserController();
+        $return = $TgUserController->CheckUser($response, false);
+        $TgUserController->UpdateStep($response, false, "start_work");
+        if ($return->status == "VERIFIED" || $return != "Bad addition") {
+            if ($return->role == "admin") {
+                $data = ["Заявки на авторизацию,заявки"];
+                $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
+            } else {
+                $keyboard = $this->keyboard;
+            }
+
+            $encodedKeyboard = json_encode($keyboard);
+            return $params = [
+                'chat_id' => $response["message"]["chat"]["id"],
+                'text' => "Старт работы с ботом: \n" . "Дата: " . date("m.d.y") . "\nВремя: " . date("H:i:s"),
+                'parse_mode' => 'HTML',
+                'reply_markup' => $encodedKeyboard
+            ];
+
+        } else {
+            return $params = [
+                'chat_id' => $response["message"]["chat"]["id"],
+                'text' => "Вы не авторизованы в боте, обратитесь к администратору",
+                'parse_mode' => 'HTML',
+            ];
+        }
+    }
+
+}
