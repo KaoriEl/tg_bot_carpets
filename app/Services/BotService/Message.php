@@ -18,7 +18,7 @@ class Message
                 case "☰":
                     return (new Menu())->HandleMessage($response);
                     break;
-                case "← назад":
+                case "группы":
                     return (new GroupBack())->HandleMessage($response);
                     break;
                 default:

@@ -39,7 +39,7 @@ class CallbackMessage
                 default:
                     return $params = [
                         'chat_id' => $response["callback_query"]["message"]["chat"]["id"],
-                        'text' => "Еще не работаетт",
+                        'text' => "Этот функционал еще в разработке",
                         'parse_mode' => 'HTML',
                     ];
 

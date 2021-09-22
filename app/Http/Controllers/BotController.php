@@ -37,7 +37,7 @@ class BotController extends Controller
      */
     public function skip_update(){
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
-        $offset = 663511828;
+        $offset = 663511910;
         $response = $telegram->getUpdates(['limit' => 1, 'offset' => $offset]);
         $params = [
             'chat_id'                  => $response[0]["message"]["chat"]["id"],

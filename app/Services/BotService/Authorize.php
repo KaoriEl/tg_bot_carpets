@@ -45,10 +45,25 @@ class Authorize implements ChatStrategy
             $encodedKeyboard = json_encode($keyboard);
             if ($status_auth->status == "VERIFIED" ) {
 
+
+
+                $keyboard_infinity = [
+                    'keyboard' => [
+                        [
+                            ['text' => 'Начать работу'],
+                        ]
+                    ],
+                    'resize_keyboard' => true,
+                    'one_time_keyboard' => true
+                ];
+
+                $encodedKeyboardInfinity = json_encode($keyboard_infinity);
+
                 $msg = [
                     'chat_id' => $status_auth->chat_id,
                     'text' => "<b>" . $get_tgnickname[1] . "</b> Вас авторизировали в системе!\n Для работы с ботом напишите: <b>Начать работу</b>",
                     'parse_mode' => 'HTML',
+                    'reply_markup' => $encodedKeyboardInfinity
                 ];
 
                 (new BotController())->send_another_user($msg);

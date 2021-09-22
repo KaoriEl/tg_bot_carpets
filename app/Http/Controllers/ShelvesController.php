@@ -12,12 +12,16 @@ class ShelvesController extends Controller
 
         if ($callback == true) {
             $username = $response["callback_query"]["message"]["chat"]["username"];
-            $text = explode("#", mb_strtolower($response["callback_query"]['data']));
+            $text = explode(";", mb_strtolower($response["callback_query"]['data']));
         } else {
             $username = $response["message"]["chat"]["username"];
-            $text = explode("#", mb_strtolower($response["message"]["text"]));
+            $text = explode(";", mb_strtolower($response["message"]["text"]));
         }
 
+
+        if (!isset($text[1])){
+        $text[1] = "";
+        }
 
         $user = DB::table("tg_users")->where("tg_nickname", $username)->first();
         $shelves = new Shelves();

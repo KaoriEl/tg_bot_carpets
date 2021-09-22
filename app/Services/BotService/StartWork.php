@@ -47,7 +47,7 @@ class StartWork implements ChatStrategy
                 'keyboard' => [
                     [
                         ['text' => '☰'],
-                        ['text' => '← Назад'],
+                        ['text' => 'Группы'],
                     ]
                 ],
                 'resize_keyboard' => true,

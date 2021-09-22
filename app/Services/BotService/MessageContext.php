@@ -12,7 +12,7 @@ class MessageContext
                 return (new CallbackMessage())->CreateFromContext($response);
             } elseif (isset($response["message"]["text"])) {
                 return (new Message())->CreateFromContext($response);
-            } elseif (isset($response["message"]["caption"])) {
+            } elseif (isset($response["message"]["photo"])) {
                 return (new MessageWithPhoto())->CreateFromContext($response);
             }
         } catch (\Exception $ex) {

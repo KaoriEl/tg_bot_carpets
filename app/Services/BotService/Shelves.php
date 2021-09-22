@@ -28,7 +28,7 @@ class Shelves implements ChatStrategy
         if ($return->status == "VERIFIED") {
             return $params = [
                 'chat_id' => $response["callback_query"]["message"]["chat"]["id"],
-                'text' => "Напишите id сделки и добавьте комментарий",
+                'text' => "Напишите id сделки и добавьте комментарий\nПример: <b>1234;Ваш Комментарий</b> ",
                 'parse_mode' => 'HTML',
             ];
         } else {
