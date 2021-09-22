@@ -36,6 +36,13 @@ class CallbackMessage
                     return (new CarpetsForWashing())->HandleMessage($response);
                     break;
 
+                default:
+                    return $params = [
+                        'chat_id' => $response["callback_query"]["message"]["chat"]["id"],
+                        'text' => "Еще не работаетт",
+                        'parse_mode' => 'HTML',
+                    ];
+
 
             }
         } catch (\Exception $ex) {
