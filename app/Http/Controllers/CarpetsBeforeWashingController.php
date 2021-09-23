@@ -22,7 +22,8 @@ class CarpetsBeforeWashingController extends Controller
             $username = $response["message"]["chat"]["username"];
             $text = mb_strtolower($response["message"]["caption"]);
             $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
-            $file = $telegram->getFile(['file_id' => $response["message"]["photo"][3]["file_id"]]);
+            $last_key = array_key_last($response["message"]["photo"]);
+            $file = $telegram->getFile(['file_id' => $response["message"]["photo"][$last_key]["file_id"]]);
             $file_name = (new RandomString())->generateRandomString(50) . ".jpg";
             $client = new Client();
             $url = "https://api.telegram.org/file/bot" . env("TELEGRAM_BOT_TOKEN") . "/" . $file["file_path"];
