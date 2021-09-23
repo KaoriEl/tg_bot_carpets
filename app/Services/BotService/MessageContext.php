@@ -31,15 +31,7 @@ class MessageContext
                 }
             }
         } catch (\Exception $ex) {
-            ob_start();
-            print_r("----------------");
-            print_r($ex);
-            print_r("----------------");
-            $debug = ob_get_contents();
-            ob_end_clean();
-            $fp = fopen('CreateFromContext.logs', 'a+');
-            fwrite($fp, $debug);
-            fclose($fp);
+            Log::channel('error-channel')->debug("--------MessageContext Error--------\n" . $ex . "\n\n\n");
         }
 
     }

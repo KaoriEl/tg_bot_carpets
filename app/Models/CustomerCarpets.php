@@ -14,6 +14,7 @@ class CustomerCarpets extends Model
         'id_deals',
         'photo',
         'status',
+        'media_group_id',
     ];
 
 }

@@ -14,13 +14,29 @@ class BotController extends Controller
 
     /**
      * @throws TelegramSDKException
+     * @throws \GuzzleHttp\Exception\GuzzleException
      */
     public function index()
     {
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
         $response = $telegram->getWebhookUpdate();
-        $msg = Context::StrategySelect($response);
-        $telegram->sendMessage($msg);
+        //У меня не получилось запихать обработку альбомов в стратегию
+        if (isset($response["message"]["media_group_id"])){
+            $TgUserController = new TgUserController();
+            $user = $TgUserController->CheckUser($response, false);
+            switch ($user->step) {
+                case "works_with_carpets_from_clients":
+                    (new CarpetsFromClientController())->album($response);
+                break;
+                case "works_with_carpets_before_washing":
+                    (new CarpetsBeforeWashingController())->album($response);
+                break;
+            }
+        }else{
+            $msg = Context::StrategySelect($response);
+            $telegram->sendMessage($msg);
+        }
+
     }
 
     /**
@@ -37,7 +53,7 @@ class BotController extends Controller
      */
     public function skip_update(){
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
-        $offset = 663511999;
+        $offset = 870418865;
         $response = $telegram->getUpdates(['limit' => 1, 'offset' => $offset]);
         $params = [
             'chat_id'                  => $response[0]["message"]["chat"]["id"],
