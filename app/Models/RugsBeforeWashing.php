@@ -13,6 +13,7 @@ class RugsBeforeWashing extends Model
         'tg_user_id',
         'id_deals',
         'photo',
+        'comment',
         'status',
         'media_group_id',
     ];

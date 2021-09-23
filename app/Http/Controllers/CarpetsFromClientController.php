@@ -24,7 +24,7 @@ class CarpetsFromClientController extends Controller
 
         if (isset($response["message"]["caption"])) {
             $username = $response["message"]["chat"]["username"];
-            $text = mb_strtolower($response["message"]["caption"]);
+            $text = explode(";", mb_strtolower($response["message"]["caption"])); ;
             $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
             $last_key = array_key_last($response["message"]["photo"]);
             $file = $telegram->getFile(['file_id' => $response["message"]["photo"][$last_key]["file_id"]]);
@@ -38,8 +38,11 @@ class CarpetsFromClientController extends Controller
 
             $carpets = new CustomerCarpets();
             $carpets->tg_user_id = $user->id;
-            $carpets->id_deals = $text;
+            $carpets->id_deals = $text[0];
             $carpets->photo = '/img/' . $file_name;
+            if (isset($text[1])){
+                $carpets->comment = $text[1];
+            }
             $carpets->status = "Not sent";
             $carpets->save();
 
@@ -60,9 +63,9 @@ class CarpetsFromClientController extends Controller
         $media_group_id = $response["message"]["media_group_id"];
         $album = DB::table("customer_carpets")->where("media_group_id", $media_group_id)->first();
         if (isset($response["message"]["caption"])) {
-            $text = $response["message"]["caption"];
+            $text = explode(";", mb_strtolower($response["message"]["caption"])); ;
         }else{
-            $text = "";
+            $text = array([0=>" ",1=>" "]);
         }
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
         $last_key = array_key_last($response["message"]["photo"]);
@@ -84,15 +87,18 @@ class CarpetsFromClientController extends Controller
         array_push($fileAlbum, '/img/' . $file_name);
             Log::channel('debug-channel')->debug(json_encode($fileAlbum));
             if (isset($response["message"]["caption"])){
-                DB::table("customer_carpets")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals"=>$text]);
+                DB::table("customer_carpets")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals"=>$text[0], "comment"=>$text[1]]);
             }else{
                 DB::table("customer_carpets")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals"=>$album->id_deals]);
             }
         }else{
             $carpets = new CustomerCarpets();
             $carpets->tg_user_id = $user->id;
-            $carpets->id_deals = $text;
+            $carpets->id_deals = $text[0];
             $carpets->photo = json_encode($fileAlbum);
+            if (isset($text[1])){
+                $carpets->comment = $text[1];
+            }
             $carpets->status = "Not sent";
             $carpets->media_group_id = $media_group_id;
             $carpets->save();

@@ -19,6 +19,7 @@ class TableRugsBeforeWashing extends Migration
             $table->foreign('tg_user_id')->references('id')->on('tg_users');
             $table->string('id_deals');
             $table->text('photo');
+            $table->string('comment')->nullable();
             $table->string('status');
             $table->string('media_group_id')->nullable();
             $table->timestamps();

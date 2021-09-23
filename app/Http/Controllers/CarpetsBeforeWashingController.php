@@ -23,7 +23,7 @@ class CarpetsBeforeWashingController extends Controller
     {
         if (isset($response["message"]["caption"])) {
             $username = $response["message"]["chat"]["username"];
-            $text = mb_strtolower($response["message"]["caption"]);
+            $text = explode(";", mb_strtolower($response["message"]["caption"]));;
             $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
             $last_key = array_key_last($response["message"]["photo"]);
             $file = $telegram->getFile(['file_id' => $response["message"]["photo"][$last_key]["file_id"]]);
@@ -37,7 +37,10 @@ class CarpetsBeforeWashingController extends Controller
 
             $carpets = new RugsBeforeWashing();
             $carpets->tg_user_id = $user->id;
-            $carpets->id_deals = $text;
+            $carpets->id_deals = $text[0];
+            if (isset($text[1])) {
+                $carpets->comment = $text[1];
+            }
             $carpets->photo = '/img/' . $file_name;
             $carpets->status = "Not sent";
             $carpets->save();
@@ -57,9 +60,9 @@ class CarpetsBeforeWashingController extends Controller
         $media_group_id = $response["message"]["media_group_id"];
         $album = DB::table("rugs_before_washing")->where("media_group_id", $media_group_id)->first();
         if (isset($response["message"]["caption"])) {
-            $text = $response["message"]["caption"];
-        }else{
-            $text = "";
+            $text = explode(";", mb_strtolower($response["message"]["caption"]));;
+        } else {
+            $text = array([0 => " ", 1 => " "]);
         }
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
         $last_key = array_key_last($response["message"]["photo"]);
@@ -75,21 +78,23 @@ class CarpetsBeforeWashingController extends Controller
         $user = DB::table("tg_users")->where("tg_nickname", $username)->first();
 
 
-
-        if (isset($album->media_group_id)){
+        if (isset($album->media_group_id)) {
             $fileAlbum = json_decode($album->photo, true);
             array_push($fileAlbum, '/img/' . $file_name);
             Log::channel('debug-channel')->debug(json_encode($fileAlbum));
-            if (isset($response["message"]["caption"])){
-                DB::table("rugs_before_washing")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals"=>$text]);
-            }else{
-                DB::table("rugs_before_washing")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals"=>$album->id_deals]);
+            if (isset($response["message"]["caption"])) {
+                DB::table("rugs_before_washing")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals" => $text[0], "comment" => $text[1]]);
+            } else {
+                DB::table("rugs_before_washing")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals" => $album->id_deals]);
             }
-        }else{
+        } else {
             $carpets = new RugsBeforeWashing();
             $carpets->tg_user_id = $user->id;
-            $carpets->id_deals = $text;
+            $carpets->id_deals = $text[0];
             $carpets->photo = json_encode($fileAlbum);
+            if (isset($text[1])) {
+                $carpets->comment = $text[1];
+            }
             $carpets->status = "Not sent";
             $carpets->media_group_id = $media_group_id;
             $carpets->save();
