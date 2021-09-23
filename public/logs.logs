@@ -1,1 +1,391 @@
-----------------ok----------------
+----------------Telegram\Bot\Objects\Update Object
+(
+    [items:protected] => Array
+        (
+            [update_id] => 663512001
+            [message] => Array
+                (
+                    [message_id] => 1143
+                    [from] => Array
+                        (
+                            [id] => 708715140
+                            [is_bot] => 
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [language_code] => ru
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 708715140
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [type] => private
+                        )
+
+                    [date] => 1632367668
+                    [photo] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADcwADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp4
+                                    [file_size] => 1284
+                                    [width] => 90
+                                    [height] => 60
+                                )
+
+                            [1] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADbQADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEpy
+                                    [file_size] => 16974
+                                    [width] => 320
+                                    [height] => 213
+                                )
+
+                            [2] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADeAADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp9
+                                    [file_size] => 35312
+                                    [width] => 640
+                                    [height] => 427
+                                )
+
+                        )
+
+                    [caption] => 1232
+                )
+
+        )
+
+)
+--------------------------------2--------------------------------Telegram\Bot\Objects\Update Object
+(
+    [items:protected] => Array
+        (
+            [update_id] => 663512001
+            [message] => Array
+                (
+                    [message_id] => 1143
+                    [from] => Array
+                        (
+                            [id] => 708715140
+                            [is_bot] => 
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [language_code] => ru
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 708715140
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [type] => private
+                        )
+
+                    [date] => 1632367668
+                    [photo] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADcwADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp4
+                                    [file_size] => 1284
+                                    [width] => 90
+                                    [height] => 60
+                                )
+
+                            [1] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADbQADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEpy
+                                    [file_size] => 16974
+                                    [width] => 320
+                                    [height] => 213
+                                )
+
+                            [2] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADeAADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp9
+                                    [file_size] => 35312
+                                    [width] => 640
+                                    [height] => 427
+                                )
+
+                        )
+
+                    [caption] => 1232
+                )
+
+        )
+
+)
+--------------------------------2--------------------------------Telegram\Bot\Objects\Update Object
+(
+    [items:protected] => Array
+        (
+            [update_id] => 663512001
+            [message] => Array
+                (
+                    [message_id] => 1143
+                    [from] => Array
+                        (
+                            [id] => 708715140
+                            [is_bot] => 
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [language_code] => ru
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 708715140
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [type] => private
+                        )
+
+                    [date] => 1632367668
+                    [photo] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADcwADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp4
+                                    [file_size] => 1284
+                                    [width] => 90
+                                    [height] => 60
+                                )
+
+                            [1] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADbQADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEpy
+                                    [file_size] => 16974
+                                    [width] => 320
+                                    [height] => 213
+                                )
+
+                            [2] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADeAADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp9
+                                    [file_size] => 35312
+                                    [width] => 640
+                                    [height] => 427
+                                )
+
+                        )
+
+                    [caption] => 1232
+                )
+
+        )
+
+)
+--------------------------------2--------------------------------Telegram\Bot\Objects\Update Object
+(
+    [items:protected] => Array
+        (
+            [update_id] => 663512001
+            [message] => Array
+                (
+                    [message_id] => 1143
+                    [from] => Array
+                        (
+                            [id] => 708715140
+                            [is_bot] => 
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [language_code] => ru
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 708715140
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [type] => private
+                        )
+
+                    [date] => 1632367668
+                    [photo] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADcwADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp4
+                                    [file_size] => 1284
+                                    [width] => 90
+                                    [height] => 60
+                                )
+
+                            [1] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADbQADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEpy
+                                    [file_size] => 16974
+                                    [width] => 320
+                                    [height] => 213
+                                )
+
+                            [2] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADeAADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp9
+                                    [file_size] => 35312
+                                    [width] => 640
+                                    [height] => 427
+                                )
+
+                        )
+
+                    [caption] => 1232
+                )
+
+        )
+
+)
+--------------------------------2--------------------------------Telegram\Bot\Objects\Update Object
+(
+    [items:protected] => Array
+        (
+            [update_id] => 663512001
+            [message] => Array
+                (
+                    [message_id] => 1143
+                    [from] => Array
+                        (
+                            [id] => 708715140
+                            [is_bot] => 
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [language_code] => ru
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 708715140
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [type] => private
+                        )
+
+                    [date] => 1632367668
+                    [photo] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADcwADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp4
+                                    [file_size] => 1284
+                                    [width] => 90
+                                    [height] => 60
+                                )
+
+                            [1] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADbQADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEpy
+                                    [file_size] => 16974
+                                    [width] => 320
+                                    [height] => 213
+                                )
+
+                            [2] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADeAADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp9
+                                    [file_size] => 35312
+                                    [width] => 640
+                                    [height] => 427
+                                )
+
+                        )
+
+                    [caption] => 1232
+                )
+
+        )
+
+)
+--------------------------------2--------------------------------Telegram\Bot\Objects\Update Object
+(
+    [items:protected] => Array
+        (
+            [update_id] => 663512001
+            [message] => Array
+                (
+                    [message_id] => 1143
+                    [from] => Array
+                        (
+                            [id] => 708715140
+                            [is_bot] => 
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [language_code] => ru
+                        )
+
+                    [chat] => Array
+                        (
+                            [id] => 708715140
+                            [first_name] => Ростислав
+                            [last_name] => Кривец
+                            [username] => krivets_r
+                            [type] => private
+                        )
+
+                    [date] => 1632367668
+                    [photo] => Array
+                        (
+                            [0] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADcwADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp4
+                                    [file_size] => 1284
+                                    [width] => 90
+                                    [height] => 60
+                                )
+
+                            [1] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADbQADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEpy
+                                    [file_size] => 16974
+                                    [width] => 320
+                                    [height] => 213
+                                )
+
+                            [2] => Array
+                                (
+                                    [file_id] => AgACAgIAAxkBAAIEd2FL9DSWLnftD-3hfuBfPVJQU6RaAAIvuTEb86RYSjMQLzpVG8BAAQADAgADeAADIQQ
+                                    [file_unique_id] => AQADL7kxG_OkWEp9
+                                    [file_size] => 35312
+                                    [width] => 640
+                                    [height] => 427
+                                )
+
+                        )
+
+                    [caption] => 1232
+                )
+
+        )
+
+)
+----------------
