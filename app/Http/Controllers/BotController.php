@@ -41,7 +41,7 @@ class BotController extends Controller
         $response = $telegram->getUpdates(['limit' => 1, 'offset' => $offset]);
         $params = [
             'chat_id'                  => $response[0]["message"]["chat"]["id"],
-            'text'                     => "Здравствуйте, запрос на авторизацию отправлен, пожалуйста, ожидайте.",
+            'text'                     => "Обработка ошибок",
             'parse_mode'               => 'HTML',
         ];
         $telegram->sendMessage($params);

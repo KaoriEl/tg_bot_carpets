@@ -32,7 +32,7 @@ class StartWork implements ChatStrategy
         $TgUserController = new TgUserController();
         $return = $TgUserController->CheckUser($response, false);
         $TgUserController->UpdateStep($response, false, "start_work");
-        if ($return->status == "VERIFIED" || $return != "Bad addition") {
+        if ($return->status == "VERIFIED" && $return != "Bad addition") {
             if ($return->role == "admin") {
                 $data = ["Заявки на авторизацию,заявки"];
                 $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);

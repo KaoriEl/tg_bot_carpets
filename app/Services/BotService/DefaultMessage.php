@@ -7,6 +7,7 @@ use App\Http\Controllers\CarpetsForWashingController;
 use App\Http\Controllers\CarpetsFromClientController;
 use App\Http\Controllers\ShelvesController;
 use App\Http\Controllers\TgUserController;
+use Illuminate\Support\Facades\Log;
 
 class DefaultMessage implements ChatStrategy
 {
@@ -20,6 +21,7 @@ class DefaultMessage implements ChatStrategy
         $user = $TgUserController->CheckUser($response, false);
         switch ($user->step) {
             case "works_with_shelves":
+                Log::channel('debug-channel')->debug("-------- user -> step = works_with_shelves --------\n" . $response . "\n\n\n");
                 (new ShelvesController())->index($response, false);
                 return $params = [
                     'chat_id' => $response["message"]["chat"]["id"],
@@ -27,6 +29,7 @@ class DefaultMessage implements ChatStrategy
                     'parse_mode' => 'HTML',
                 ];
             case "works_with_carpets_for_washing":
+                Log::channel('debug-channel')->debug("-------- user -> step = works_with_carpets_for_washing --------\n" . $response . "\n\n\n");
                 (new CarpetsForWashingController())->index($response, false);
                 return $params = [
                     'chat_id' => $response["message"]["chat"]["id"],

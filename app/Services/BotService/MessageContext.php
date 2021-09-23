@@ -2,6 +2,9 @@
 
 namespace App\Services\BotService;
 
+use Illuminate\Support\Facades\Log;
+use Mockery\Exception;
+
 class MessageContext
 {
 
@@ -9,11 +12,23 @@ class MessageContext
     {
         try {
             if (isset($response['callback_query'])) {
-                return (new CallbackMessage())->CreateFromContext($response);
+                try {
+                    return (new CallbackMessage())->CreateFromContext($response);
+                } catch (Exception $e) {
+                    Log::channel('error-channel')->debug("--------Callback_query Error--------\n" . $e . "\n\n\n");
+                }
             } elseif (isset($response["message"]["text"])) {
-                return (new Message())->CreateFromContext($response);
+                try {
+                    return (new Message())->CreateFromContext($response);
+                } catch (Exception $e) {
+                    Log::channel('error-channel')->debug("--------Message_text Error--------\n" . $e . "\n\n\n");
+                }
             } elseif (isset($response["message"]["photo"])) {
-                return (new MessageWithPhoto())->CreateFromContext($response);
+                try {
+                    return (new MessageWithPhoto())->CreateFromContext($response);
+                } catch (Exception $e) {
+                    Log::channel('error-channel')->debug("--------Message_photo Error--------\n" . $e . "\n\n\n");
+                }
             }
         } catch (\Exception $ex) {
             ob_start();

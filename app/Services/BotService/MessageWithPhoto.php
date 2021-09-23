@@ -7,6 +7,7 @@ use App\Http\Controllers\CarpetsFromClientController;
 use App\Http\Controllers\ShelvesController;
 use App\Http\Controllers\TgUserController;
 use GuzzleHttp\Exception\GuzzleException;
+use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class MessageWithPhoto
@@ -21,8 +22,10 @@ class MessageWithPhoto
         $user = $TgUserController->CheckUser($response, false);
         switch ($user->step) {
             case "works_with_carpets_from_clients":
+                Log::channel('debug-channel')->debug("-------- user -> step = works_with_carpets_from_clients--------\n" . $response . "\n\n\n");
                 $status = (new CarpetsFromClientController())->index($response);
                 if ($status == "no id") {
+                    Log::channel('debug-channel')->debug("-------- user -> step = works_with_carpets_from_clients and user don't write id deals--------\n" . $response . "\n\n\n");
                     return $params = [
                         'chat_id' => $response["message"]["chat"]["id"],
                         'text' => "<b>Вы не написали id сделки</b>\nНапишите id сделки и прикрепите фото еще раз.",
@@ -37,8 +40,10 @@ class MessageWithPhoto
                 }
                 break;
             case "works_with_carpets_before_washing":
+                Log::channel('debug-channel')->debug("-------- user -> step = works_with_carpets_before_washing--------\n" . $response . "\n\n\n");
                 $status = (new CarpetsBeforeWashingController())->index($response, false);
                 if ($status == "no id") {
+                    Log::channel('debug-channel')->debug("-------- user -> step = works_with_carpets_before_washing and user don't write id deals--------\n" . $response . "\n\n\n");
                     return $params = [
                         'chat_id' => $response["message"]["chat"]["id"],
                         'text' => "<b>Вы не написали id сделки</b>\nНапишите id сделки и прикрепите фото еще раз.",

@@ -6,6 +6,8 @@ use App\Contracts\ChatStrategy;
 use App\Http\Controllers\BotController;
 use App\Http\Controllers\TgUserController;
 use App\Services\Engine\KeyboardGenerate;
+use Illuminate\Support\Facades\Log;
+use Mockery\Exception;
 use Telegram\Bot\Api;
 
 class Authorize implements ChatStrategy
@@ -34,19 +36,21 @@ class Authorize implements ChatStrategy
     {
         //Ну не очень красиво кнш, но вроде понятно.
         $TgUserController = new TgUserController();
-        $get_tgnickname = explode("*", mb_strtolower($response["callback_query"]['data']));
+        try {
+            $get_tgnickname = explode("*", mb_strtolower($response["callback_query"]['data']));
+        }catch (Exception $e){
+            Log::channel('error-channel')->debug("--------Callback_query - авторизовать - HandleMessage --------\n" . $response . "\n\n\n");
+        }
+
         $return = $TgUserController->CheckUser($response, true);
-        $TgUserController->UpdateStep($response, true,"authorize");
+        $TgUserController->UpdateStep($response, true, "authorize");
         $status_auth = $TgUserController->AuthorizeUser($response, $get_tgnickname[1]);
 
         if ($return->status == "VERIFIED" && $return->role == "admin") {
             $data = ["Заявки на авторизацию,заявки"];
             $keyboard = (new KeyboardGenerate($this->keyboard))->generate($data);
             $encodedKeyboard = json_encode($keyboard);
-            if ($status_auth->status == "VERIFIED" ) {
-
-
-
+            if ($status_auth->status == "VERIFIED") {
                 $keyboard_infinity = [
                     'keyboard' => [
                         [
