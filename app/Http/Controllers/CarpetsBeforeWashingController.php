@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\CustomerCarpets;
+use App\Models\FailedJobsAlbum;
 use App\Models\RugsBeforeWashing;
 use App\Services\Random\RandomString;
 use GuzzleHttp\Client;
@@ -62,7 +63,7 @@ class CarpetsBeforeWashingController extends Controller
         if (isset($response["message"]["caption"])) {
             $text = explode(";", mb_strtolower($response["message"]["caption"]));;
         } else {
-            $text = array([0 => " ", 1 => " "]);
+            $text = array(" ", " ");
         }
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
         $last_key = array_key_last($response["message"]["photo"]);
@@ -74,14 +75,10 @@ class CarpetsBeforeWashingController extends Controller
         $url = "https://api.telegram.org/file/bot" . env("TELEGRAM_BOT_TOKEN") . "/" . $file["file_path"];
         $resource = \GuzzleHttp\Psr7\Utils::tryFopen($_SERVER['DOCUMENT_ROOT'] . '/img/' . $file_name, 'a+');
         $client->request('GET', $url, ['sink' => $resource]);
-
         $user = DB::table("tg_users")->where("tg_nickname", $username)->first();
-
-
         if (isset($album->media_group_id)) {
             $fileAlbum = json_decode($album->photo, true);
             array_push($fileAlbum, '/img/' . $file_name);
-            Log::channel('debug-channel')->debug(json_encode($fileAlbum));
             if (isset($response["message"]["caption"])) {
                 DB::table("rugs_before_washing")->where("media_group_id", $media_group_id)->update(['photo' => json_encode($fileAlbum), "id_deals" => $text[0], "comment" => $text[1]]);
             } else {
@@ -90,7 +87,27 @@ class CarpetsBeforeWashingController extends Controller
         } else {
             $carpets = new RugsBeforeWashing();
             $carpets->tg_user_id = $user->id;
-            $carpets->id_deals = $text[0];
+
+            //это мой худший проект, реально.
+            //Тут я по мега тупому принципу делаю так чтоб небыло дубля сообщения, записываю в бд с failed jobs и сверяю
+            if ($text[0] == " ") {
+                $params = [
+                    'chat_id' => $response["message"]["chat"]["id"],
+                    'text' => "<b>Вы не написали id сделки</b>\nНапишите id сделки и прикрепите фото еще раз.",
+                    'parse_mode' => 'HTML',
+                ];
+                $failed_jobs = DB::table("failed_jobs_album")->where("media_group_id", $media_group_id)->first();
+                if (!isset($failed_jobs->media_group_id)) {
+                    $fail = new FailedJobsAlbum();
+                    $fail->media_group_id = $media_group_id;
+                    $fail->save();
+                    $telegram->sendMessage($params);
+                }
+                return "fail";
+
+            } else {
+                $carpets->id_deals = $text[0];
+            }
             $carpets->photo = json_encode($fileAlbum);
             if (isset($text[1])) {
                 $carpets->comment = $text[1];
