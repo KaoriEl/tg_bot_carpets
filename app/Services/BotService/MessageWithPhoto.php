@@ -59,7 +59,7 @@ class MessageWithPhoto
                 break;
 
             default:
-                $TgUserController->UpdateStep($response, false, "wrong_message");
+
                 return $params = [
                     'chat_id' => $response["message"]["chat"]["id"],
                     'text' => "Я не знаю такого сообщения, пожалуйста проверьте правильность написания",
