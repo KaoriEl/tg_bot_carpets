@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\FailedJobsAlbum;
 use App\Services\BotService\Context;
+use App\Services\BotService\MessageDocument;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Telegram\Bot\Api;
 use Telegram\Bot\Exceptions\TelegramSDKException;
@@ -22,8 +25,10 @@ class BotController extends Controller
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
         $response = $telegram->getWebhookUpdate();
         Log::channel('debug-channel')->debug("--------Самое начало --------\n" . $response . "\n\n\n");
+
+
         //У меня не получилось запихать обработку альбомов в стратегию
-        if (isset($response["message"]["media_group_id"])){
+        if (isset($response["message"]["media_group_id"]) && !isset($response["message"]["document"])){
             $TgUserController = new TgUserController();
             $user = $TgUserController->CheckUser($response, false);
             switch ($user->step) {
@@ -34,7 +39,9 @@ class BotController extends Controller
                     (new CarpetsBeforeWashingController())->album($response);
                 break;
             }
-        }else{
+        }elseif (isset($response["message"]["document"])){
+            (new MessageDocument())->index($telegram,$response);
+            } else{
             $msg = Context::StrategySelect($response);
             $telegram->sendMessage($msg);
         }
@@ -55,7 +62,7 @@ class BotController extends Controller
      */
     public function skip_update(){
         $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
-        $offset = 870419058;
+        $offset = 870419091;
         $response = $telegram->getUpdates(['limit' => 1, 'offset' => $offset]);
         $params = [
             'chat_id'                  => $response[0]["message"]["chat"]["id"],
